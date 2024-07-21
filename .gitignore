@@ -37,8 +37,6 @@ build/
 ### Mac OS ###
 .DS_Store
 
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
 # Compiled output
 /dist
 /tmp
@@ -46,7 +44,8 @@ build/
 /bazel-out
 
 # Node
-/node_modules
+node_modules
+.angular
 npm-debug.log
 yarn-error.log
 
@@ -79,3 +78,4 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
