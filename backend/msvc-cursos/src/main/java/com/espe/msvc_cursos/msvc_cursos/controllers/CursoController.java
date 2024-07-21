@@ -86,6 +86,7 @@ public class CursoController {
 
     @PutMapping("/cursos/{id}/agregar-usuario")
     public ResponseEntity<?> agregarUsuario(@RequestBody Usuario usuario, @PathVariable Long id) {
+        System.out.println("Received request to add user to course with ID: " + id);
         Optional<Usuario> usuarioDb;
 
         try {
@@ -103,6 +104,7 @@ public class CursoController {
 
     @PutMapping("/cursos/{id}/eliminar-usuario/{cursoUsuarioId}")
     public ResponseEntity<?> eliminarUsuario(@PathVariable Long id, @PathVariable Long cursoUsuarioId) {
+
         try {
             boolean removed = service.eliminarUsuario(cursoUsuarioId, id);
             if (removed) {
@@ -112,6 +114,8 @@ public class CursoController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
+
     }
+
 
 }

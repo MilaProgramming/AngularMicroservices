@@ -1,8 +1,11 @@
 package com.espe.msvc_cursos.msvc_cursos.services;
 
 import com.espe.msvc_cursos.msvc_cursos.clients.UsuarioClientRest;
+import com.espe.msvc_cursos.msvc_cursos.controllers.CursoController;
 import com.espe.msvc_cursos.msvc_cursos.models.entity.CursoUsuario;
 import com.espe.msvc_cursos.msvc_cursos.models.entity.Usuario;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,12 @@ public class CursoServiceImpl implements CursoService {
 
     @Autowired
     UsuarioClientRest usuarioClientRest;
+
+    @Mock
+    private CursoService cursoService;
+
+    @InjectMocks
+    private CursoController cursoController;
 
     @Override
     @Transactional(readOnly = true)
