@@ -1,7 +1,7 @@
 <div class="clase">
   <div class="flex-agregar-boton">
     <h2>Lista de Clases</h2>
-    <button class="boton-tabla agregar" (click)="handleAgregarClick()">
+    <button class="boton-tabla agregar" (click)="handleAgregarClick()" id="AgregarCurso">
       <i class="fa fa-plus"></i>
       Agregar
     </button>
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="modal-buttons">
-        <button *ngIf="isAddOrUpdate" (click)="handleAceptarClick()">Agregar</button>
+        <button *ngIf="isAddOrUpdate" (click)="handleAceptarClick()" class="aceptar">Agregar</button>
         <button *ngIf="!isAddOrUpdate" (click)="handleAceptarClick()">Actualizar</button>
         <button (click)="handleCloseModal()">Cancelar</button>
       </div>

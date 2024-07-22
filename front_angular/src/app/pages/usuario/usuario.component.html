@@ -2,7 +2,7 @@
   <div class="flex-agregar-boton">
     <h2>Lista de Usuarios</h2>
     <button class="boton-tabla agregar" (click)="handleAgregarClick()">
-      <i class="fa fa-plus icon"></i> Agregar
+      <i class="fa fa-plus icon" id="AgregarUsuario"></i> Agregar
     </button>
   </div>
   <div class="flex-tabla">
@@ -56,7 +56,7 @@
         <p *ngIf="!passwordMatch" class="error">Las contraseñas no coinciden</p>
       </div>
       <div [ngClass]="{ 'modal-buttons': passwordMatch, 'modal-buttons-error': !passwordMatch }">
-        <button (click)="handleAceptarClick()" [disabled]="!passwordMatch">
+        <button (click)="handleAceptarClick()" [disabled]="!passwordMatch" class="aceptar">
           {{ isAddOrUpdate ? 'Agregar' : 'Actualizar' }}
         </button>
         <button class="cancelar" (click)="handleCloseModal()">Cancelar</button>
