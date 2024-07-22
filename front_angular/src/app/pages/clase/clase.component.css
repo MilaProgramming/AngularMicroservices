@@ -1,6 +1,7 @@
 .clase {
   margin: 20px;
   font-family: 'Roboto', sans-serif;
+  overflow: hidden;
 }
 
 .boton-tabla .icon {
