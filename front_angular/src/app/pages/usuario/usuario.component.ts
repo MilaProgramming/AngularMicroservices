@@ -28,17 +28,6 @@ export class UsuarioComponent {
     this.fetchUsuarios();
   }
 
-  ngOnInit() {
-    console.log('ngOnInit called');
-    this.http.get<any[]>('http://localhost:8001/api/usuarios/listar').subscribe({
-      next: (data) => {
-        console.log('Data fetched:', data); // Debugging log
-        this.usuarios = data;
-      },
-      error: (err) => console.error('Error fetching data:', err) // Debugging log
-    });
-  }
-
   fetchUsuarios(): void {
     this.http.get<any[]>('http://localhost:8001/api/usuarios/listar').subscribe({
       next: (data) => {
