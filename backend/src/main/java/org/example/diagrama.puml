@@ -1,0 +1,185 @@
+@startuml
+
+package "Sistema de Matriculacion" {
+
+    package "msvc-usuarios" {
+        package com.espe.msvc_usuarios.controllers {
+            class UsuarioController {
+                - UsuarioService service
+                - static ResponseEntity<Map<String, String>> validar(BindingResult result)
+                + ResponseEntity<List<Usuario>> listar()
+                + ResponseEntity<Usuario> detalle(Long id)
+                + ResponseEntity<?> guardar(Usuario usuario, BindingResult result)
+                + ResponseEntity<?> editar(Usuario usuario, Long id, BindingResult result)
+                + ResponseEntity<Void> eliminar(Long id)
+            }
+        }
+
+        package com.espe.msvc_usuarios.models.entity {
+            class Usuario {
+                + Long id
+                + String nombre
+                + String email
+                + String password
+                + Long getId()
+                + void setId(Long id)
+                + String getNombre()
+                + void setNombre(String nombre)
+                + String getEmail()
+                + void setEmail(String email)
+                + String getPassword()
+                + void setPassword(String password)
+            }
+        }
+
+        package com.espe.msvc_usuarios.repositories {
+            interface UsuarioRepository {
+                + Usuario save(Usuario usuario)
+                + Optional<Usuario> findById(Long id)
+                + List<Usuario> findAll()
+                + void deleteById(Long id)
+            }
+        }
+
+        package com.espe.msvc_usuarios.services {
+            interface UsuarioService {
+                + List<Usuario> listar()
+                + Optional<Usuario> porId(Long id)
+                + Usuario guardar(Usuario usuario)
+                + void eliminar(Long id)
+            }
+
+            class UsuarioServiceImpl implements UsuarioService {
+                - UsuarioRepository repository
+                + List<Usuario> listar()
+                + Optional<Usuario> porId(Long id)
+                + Usuario guardar(Usuario usuario)
+                + void eliminar(Long id)
+            }
+        }
+
+        package com.espe.msvc_usuarios {
+            class MsvcUsuariosApplication {
+                + static void main(String[] args)
+            }
+        }
+
+        UsuarioController --> UsuarioService
+        UsuarioServiceImpl --> UsuarioRepository
+        UsuarioRepository --> Usuario
+        UsuarioServiceImpl ..|> UsuarioService
+    }
+
+    package "msvc-cursos" {
+        package com.espe.msvc_cursos.controllers {
+            class CursoController {
+                - CursoService service
+                - static ResponseEntity<Map<String, String>> validar(BindingResult result)
+                + List<Curso> listar()
+                + ResponseEntity<Curso> porId(Long id)
+                + ResponseEntity<?> guardar(Curso curso, BindingResult result)
+                + ResponseEntity<?> actualizar(Curso curso, Long id, BindingResult result)
+                + ResponseEntity<Void> eliminar(Long id)
+                + ResponseEntity<?> agregarUsuario(Usuario usuario, Long id)
+                + ResponseEntity<?> eliminarUsuario(Long id, Long cursoUsuarioId)
+            }
+        }
+
+        package com.espe.msvc_cursos.models.entity {
+            class Curso {
+                + Long id
+                + String nombre
+                + List<CursoUsuario> cursoUsuarios
+                + List<Usuario> usuarios
+                + Long getId()
+                + void setId(Long id)
+                + String getNombre()
+                + void setNombre(String nombre)
+                + List<CursoUsuario> getCursoUsuarios()
+                + void setCursoUsuarios(List<CursoUsuario> cursoUsuarios)
+                + void addCursoUsuario(CursoUsuario cursoUsuario)
+                + void removeCursoUsuario(CursoUsuario cursoUsuario)
+            }
+
+            class CursoUsuario {
+                + Long id
+                + Long usuarioId
+                + Long getId()
+                + void setId(Long id)
+                + Long getUsuarioId()
+                + void setUsuarioId(Long usuarioId)
+            }
+
+            class Usuarios {
+                + Long id
+                + String nombre
+                + String email
+                + String password
+                + Long getId()
+                + void setId(Long id)
+                + String getNombre()
+                + void setNombre(String nombre)
+                + String getEmail()
+                + void setEmail(String email)
+                + String getPassword()
+                + void setPassword(String password)
+            }
+        }
+
+        package com.espe.msvc_cursos.repositories {
+            interface CursoRepository {
+                + Curso save(Curso curso)
+                + Optional<Curso> findById(Long id)
+                + List<Curso> findAll()
+                + void deleteById(Long id)
+            }
+        }
+
+        package com.espe.msvc_cursos.services {
+            interface CursoService {
+                + List<Curso> listar()
+                + Optional<Curso> porId(Long id)
+                + Curso guardar(Curso curso)
+                + void eliminar(Long id)
+                + Optional<Usuario> agregarUsuario(Usuario usuario, Long idCurso)
+                + boolean eliminarUsuario(Long cursoUsuarioId, Long cursoId)
+            }
+
+            class CursoServiceImpl implements CursoService {
+                - CursoRepository cursoRepository
+                - UsuarioClientRest usuarioClientRest
+                + List<Curso> listar()
+                + Optional<Curso> porId(Long id)
+                + Curso guardar(Curso curso)
+                + void eliminar(Long id)
+                + Optional<Usuario> agregarUsuario(Usuario usuario, Long idCurso)
+                + boolean eliminarUsuario(Long cursoUsuarioId, Long cursoId)
+            }
+        }
+
+        package com.espe.msvc_cursos.clients {
+            interface UsuarioClientRest {
+                + Usuario detalle(Long id)
+                + Usuario crear(Usuario usuario)
+            }
+        }
+
+        package com.espe.msvc_cursos {
+            class MsvcCursosApplication {
+                + static void main(String[] args)
+            }
+        }
+
+        CursoController --> CursoService
+        CursoServiceImpl --> CursoRepository
+        CursoServiceImpl --> UsuarioClientRest
+        CursoRepository --> Curso
+        CursoServiceImpl ..|> CursoService
+
+        Curso --> CursoUsuario
+        CursoUsuario --> Usuarios
+        Usuarios --> Usuario
+    }
+}
+
+@enduml
